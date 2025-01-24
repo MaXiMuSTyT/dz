@@ -1,11 +1,12 @@
-file = open('inf.txt', 'r+')
+file = open('inf.txt','r+')
 inf = file.readline()
 
-N = int(inf[0])
-res = int(inf[-1])
-spi = inf[1:-1].split()
-spi = [int(i) for i in spi]
 
+spi = inf.split()
+spi = [int(i) for i in spi]
+N = spi[0]
+res = spi[-1]
+spi = spi[1:-1]
 def per(ind=0, done = 0,var = '',amount = N,result = res):
     '''Функция расстановки + и -'''
     if ind == amount:
@@ -20,5 +21,8 @@ def per(ind=0, done = 0,var = '',amount = N,result = res):
         return sl
     return None
 
-file.write(' '+per())
+if per() == None:
+    file.write(' '+ 'No solutions')
+else:
+    file.write(' '+per())
 file.close()

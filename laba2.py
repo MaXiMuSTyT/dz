@@ -49,7 +49,7 @@ def place_stars(field,N):
     return
 
 def stars_delete(field):
-    '''Функция удаления * на поле'''
+    '''Функция удаления * на поле (в данной задаче может не использоваться)'''
     for x,y in stars_cor:
         field[y][x] = 0
     stars_cor.clear()
@@ -78,9 +78,12 @@ def place_figures(field, placed, L, solutions, N,m, l):
 
 place_figures(field, b, L, solutions, N,0,0)
 
+if solutions == []:
+    output.write('No solutions')
+else:
+    for i in solutions:
+        output.write(str(i) + '\n')
 
-for i in solutions:
-    output.write(str(i) + '\n')
 place_stars(field,N)
 # вывод поля
 for row in field:
