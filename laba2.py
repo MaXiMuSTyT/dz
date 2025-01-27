@@ -1,6 +1,6 @@
 file = open('input.txt', 'r+')
 a = file.readline()
-output = open('output.txt','w')
+output = open('output.txt','r+')
 output.truncate(0)
 def inf(a):
     '''Вспомогательная функция для преобразовния информации'''
@@ -8,8 +8,8 @@ def inf(a):
     d = [int(i) for i in s]
     return d
 
+
 stars_cor = []
-solutions = []
 placed_positions = []
 coordinates = []
 inf = inf(a)
@@ -56,10 +56,11 @@ def stars_delete(field):
     return
 
 
-def place_figures(field, placed, L, solutions, N,m, l):
+def place_figures(field, placed, L,  N,m, l):
     '''Функция расстановки фигур на поле и нахождения всех решений'''
     if placed == L:
-        solutions.append(placed_positions.copy())
+        output.write(str(placed_positions)+'\n')
+
         return
     for x in range(m,N):
         for y in range(l if x == m else 0, N):
@@ -70,25 +71,24 @@ def place_figures(field, placed, L, solutions, N,m, l):
                 # # for row in field:
                 # #     print(*row, sep=', ')
                 # stars_delete(field)
-                place_figures(field, placed + 1, L, solutions, N,x,y)
+                place_figures(field, placed + 1, L,  N,x,y)
                 field[x][y] = '0'
                 placed_positions.pop()
+
             l = 0
 
 
-place_figures(field, b, L, solutions, N,0,0)
+place_figures(field, b, L, N,0,0)
+output.seek(0)
+line = output.readline()
 
-if solutions == []:
+if len(line) == 0:
     output.write('No solutions')
-else:
-    for i in solutions:
-        output.write(str(i) + '\n')
-
 place_stars(field,N)
 # вывод поля
 for row in field:
     print(*row,sep =', ')
-print('кол-во решений:',len(solutions))
+
 
 file.close()
 output.close()
